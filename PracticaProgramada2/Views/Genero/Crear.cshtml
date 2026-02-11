@@ -1,0 +1,24 @@
+@model PracticaProgramada2.Models.Genero
+
+@{
+    ViewData["Title"] = "Crear Género";
+}
+
+<h2>Crear Nuevo Género</h2>
+
+<form asp-action="Crear" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label">Nombre del Género</label>
+        <input asp-for="Nombre" class="form-control" placeholder="Ej: Acción, Aventura, RPG">
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

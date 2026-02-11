@@ -1,0 +1,47 @@
+@model List<PracticaProgramada2.Models.Genero>
+
+@{
+    ViewData["Title"] = "Géneros";
+}
+
+<h2>Géneros</h2>
+
+<a asp-action="Crear" class="btn btn-primary mb-3">
+    ➕ Nuevo Género
+</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Cantidad de Videojuegos</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var genero in Model)
+        {
+            <tr>
+                <td>@genero.Nombre</td>
+                <td>@(genero.Videojuegos?.Count ?? 0)</td>
+                <td>
+                    <a asp-action="Detalle" 
+                       asp-route-id="@genero.Id" 
+                       class="btn btn-primary btn-sm">
+                        Ver detalle
+                    </a>
+                    <a asp-action="Editar" 
+                       asp-route-id="@genero.Id" 
+                       class="btn btn-warning btn-sm">
+                        Editar
+                    </a>
+                    <a asp-action="Eliminar" 
+                       asp-route-id="@genero.Id" 
+                       class="btn btn-danger btn-sm">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

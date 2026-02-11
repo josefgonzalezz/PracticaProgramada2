@@ -1,0 +1,61 @@
+@model PracticaProgramada2.Models.Comentario
+
+@{
+    ViewData["Title"] = "Detalle del Comentario";
+}
+
+<h2>Detalle del Comentario</h2>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">Comentario sobre: @(Model.Videojuego?.Titulo ?? "N/A")</h5>
+        
+        <div class="mb-3">
+            <strong>Valoración:</strong>
+            @for (int i = 1; i <= 5; i++)
+            {
+                if (i <= Model.Valoracion)
+                {
+                    <span class="text-warning">⭐</span>
+                }
+                else
+                {
+                    <span class="text-muted">☆</span>
+                }
+            }
+            <span class="ms-2">(@Model.Valoracion/5)</span>
+        </div>
+
+        <div class="mb-3">
+            <strong>Comentario:</strong>
+            <p class="mt-2">@Model.TextoComentario</p>
+        </div>
+
+        <div class="mb-3">
+            <strong>Fecha:</strong> @Model.Fecha.ToString("dd/MM/yyyy HH:mm")
+        </div>
+
+        @if (Model.Videojuego != null)
+        {
+            <div class="mb-3">
+                <strong>Videojuego:</strong>
+                <p class="mt-2">
+                    @Model.Videojuego.Titulo - @Model.Videojuego.Plataforma<br>
+                    Precio: ₡@Model.Videojuego.Precio.ToString("N2")
+                </p>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="mb-3">
+    <a asp-action="Editar" asp-route-id="@Model.Id" class="btn btn-warning">
+        Editar
+    </a>
+    <a asp-action="Eliminar" asp-route-id="@Model.Id" class="btn btn-danger">
+        Eliminar
+    </a>
+    <a asp-action="Index" class="btn btn-secondary">
+        Volver al listado
+    </a>
+</div>

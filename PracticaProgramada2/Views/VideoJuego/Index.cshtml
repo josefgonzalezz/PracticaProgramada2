@@ -1,0 +1,51 @@
+@model List<PracticaProgramada2.Models.Videojuego>
+@{
+    ViewData["Title"] = "Videojuegos";
+}
+
+<h2>Lista de Videojuegos</h2>
+<a asp-action="Crear" class="btn btn-primary mb-3">Crear Nuevo Videojuego</a>
+
+<div class="row">
+    @foreach (var juego in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                @if (!string.IsNullOrEmpty(juego.ImagePath))
+                {
+                    <img src="@juego.ImagePath"
+                         class="card-img-top"
+                         alt="@juego.Titulo"
+                         style="height: 200px; object-fit: cover;"
+                         onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'bg-secondary text-white d-flex align-items-center justify-content-center\' style=\'height: 200px;\'>Sin imagen</div>';">
+                }
+                else
+                {
+                    <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
+                        Sin imagen
+                    </div>
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@juego.Titulo</h5>
+                    <p class="card-text">
+                        <strong>Plataforma:</strong> @juego.Plataforma<br>
+                        <strong>Género:</strong> @(juego.Genero?.Nombre ?? "N/A")<br>
+                        <strong>Precio:</strong> ₡@juego.Precio.ToString("N2")
+                    </p>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a asp-action="Detalle" asp-route-id="@juego.Id" class="btn btn-info btn-sm">Detalle</a>
+                    <a asp-action="Editar" asp-route-id="@juego.Id" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-action="Eliminar" asp-route-id="@juego.Id" class="btn btn-danger btn-sm">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No hay videojuegos registrados. <a asp-action="Crear">Crea uno nuevo</a>
+    </div>
+}

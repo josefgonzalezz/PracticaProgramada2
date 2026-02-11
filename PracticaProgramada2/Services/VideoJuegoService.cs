@@ -1,48 +1,53 @@
 ﻿using PracticaProgramada2.Models;
-using PracticaProgramada2.Repositories;
+using PracticaProgramada2.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace PracticaProgramada2.Services
 {
     public class VideojuegoService : IVideojuegoService
     {
-        private readonly IVideojuegoRepository _repository;
+        private readonly AppDbContext _context;
 
-        public VideojuegoService(IVideojuegoRepository repository)
+        public VideojuegoService(AppDbContext context)
         {
-            _repository = repository;
+            _context = context;
         }
 
         public List<Videojuego> ObtenerTodos()
-            => _repository.ObtenerTodos();
+            => _context.Videojuegos.Include(v => v.Genero).OrderBy(v => v.Titulo).ToList();
 
         public Videojuego? ObtenerDetalle(int id)
-            => _repository.ObtenerPorId(id);
+            => _context.Videojuegos.Include(v => v.Genero).Include(v => v.Comentarios).FirstOrDefault(v => v.Id == id);
 
         public bool CrearVideojuego(Videojuego videojuego)
         {
-            if (_repository.ExisteId(videojuego.Id))
-                return false;
-
-            _repository.Agregar(videojuego);
+            _context.Videojuegos.Add(videojuego);
+            _context.SaveChanges();
             return true;
         }
 
         public bool EditarVideojuego(Videojuego videojuego)
         {
-            if (!_repository.ExisteId(videojuego.Id))
+            var existe = _context.Videojuegos.Any(v => v.Id == videojuego.Id);
+            if (!existe)
                 return false;
 
-            _repository.Actualizar(videojuego);
+            _context.Videojuegos.Update(videojuego);
+            _context.SaveChanges();
             return true;
         }
 
         public bool EliminarVideojuego(int id)
         {
-            if (!_repository.ExisteId(id))
+            var videojuego = _context.Videojuegos.Find(id);
+            if (videojuego == null)
                 return false;
 
-            _repository.Eliminar(id);
+            _context.Videojuegos.Remove(videojuego);
+            _context.SaveChanges();
             return true;
         }
+
+        
     }
 }

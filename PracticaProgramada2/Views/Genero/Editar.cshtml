@@ -1,0 +1,27 @@
+@model PracticaProgramada2.Models.Genero
+
+@{
+    ViewData["Title"] = "Editar Género";
+}
+
+<h2>Editar Género</h2>
+
+<form asp-action="Editar" method="post">
+    <input type="hidden" asp-for="Id">
+    
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label">Nombre del Género</label>
+        <input asp-for="Nombre" class="form-control">
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+    <a asp-action="Detalle" asp-route-id="@Model.Id" class="btn btn-secondary">Cancelar</a>
+    <a asp-action="Index" class="btn btn-outline-secondary">Volver al listado</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

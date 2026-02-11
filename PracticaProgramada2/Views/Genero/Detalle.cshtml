@@ -1,0 +1,58 @@
+@model PracticaProgramada2.Models.Genero
+
+@{
+    ViewData["Title"] = "Detalle del Género";
+}
+
+<h2>Detalle del Género</h2>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Nombre</h5>
+        <p class="card-text">
+            <strong>Cantidad de videojuegos:</strong> @(Model.Videojuegos?.Count ?? 0)
+        </p>
+    </div>
+</div>
+
+<div class="mb-3">
+    <a asp-action="Editar" asp-route-id="@Model.Id" class="btn btn-warning">
+        Editar
+    </a>
+    <a asp-action="Eliminar" asp-route-id="@Model.Id" class="btn btn-danger">
+        Eliminar
+    </a>
+    <a asp-action="Index" class="btn btn-secondary">
+        Volver al listado
+    </a>
+</div>
+
+@if (Model.Videojuegos != null && Model.Videojuegos.Any())
+{
+    <h3>Videojuegos de este género</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Plataforma</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var juego in Model.Videojuegos)
+            {
+                <tr>
+                    <td>@juego.Titulo</td>
+                    <td>@juego.Plataforma</td>
+                    <td>₡@juego.Precio.ToString("N2")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">
+        No hay videojuegos asociados a este género.
+    </div>
+}

@@ -18,10 +18,10 @@ namespace PracticaProgramada2.Models
         [Required]
         public decimal Precio { get; set; }
 
-        public string ImagePath { get; set; }
+        public string? ImagePath { get; set; }
 
         [ForeignKey(nameof(Genero))]
-        public int GeneroId { get; set; }
+        public int? GeneroId { get; set; }
 
         public Genero? Genero { get; set; }
 

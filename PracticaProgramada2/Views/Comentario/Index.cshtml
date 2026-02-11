@@ -1,0 +1,64 @@
+@model List<PracticaProgramada2.Models.Comentario>
+
+@{
+    ViewData["Title"] = "Comentarios";
+}
+
+<h2>Comentarios</h2>
+
+<a asp-action="Crear" class="btn btn-primary mb-3">
+    ➕ Nuevo Comentario
+</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Videojuego</th>
+            <th>Comentario</th>
+            <th>Valoración</th>
+            <th>Fecha</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var comentario in Model)
+        {
+            <tr>
+                <td>@(comentario.Videojuego?.Titulo ?? "N/A")</td>
+                <td>@comentario.TextoComentario</td>
+                <td>
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        if (i <= comentario.Valoracion)
+                        {
+                            <span class="text-warning">⭐</span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">☆</span>
+                        }
+                    }
+                    (@comentario.Valoracion/5)
+                </td>
+                <td>@comentario.Fecha.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <a asp-action="Detalle" 
+                       asp-route-id="@comentario.Id" 
+                       class="btn btn-primary btn-sm">
+                        Ver detalle
+                    </a>
+                    <a asp-action="Editar" 
+                       asp-route-id="@comentario.Id" 
+                       class="btn btn-warning btn-sm">
+                        Editar
+                    </a>
+                    <a asp-action="Eliminar" 
+                       asp-route-id="@comentario.Id" 
+                       class="btn btn-danger btn-sm">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

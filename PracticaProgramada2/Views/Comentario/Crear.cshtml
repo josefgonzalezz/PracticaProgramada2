@@ -1,0 +1,45 @@
+@model PracticaProgramada2.Models.Comentario
+
+@{
+    ViewData["Title"] = "Crear Comentario";
+}
+
+<h2>Crear Nuevo Comentario</h2>
+
+<form asp-action="Crear" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="VideojuegoId" class="form-label">Videojuego</label>
+        <select asp-for="VideojuegoId" class="form-select" asp-items="ViewBag.Videojuegos">
+            <option value="">Seleccione un videojuego</option>
+        </select>
+        <span asp-validation-for="VideojuegoId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TextoComentario" class="form-label">Comentario</label>
+        <textarea asp-for="TextoComentario" class="form-control" rows="4" placeholder="Escribe tu comentario sobre el videojuego..."></textarea>
+        <span asp-validation-for="TextoComentario" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Valoracion" class="form-label">Valoración</label>
+        <select asp-for="Valoracion" class="form-select">
+            <option value="">Seleccione una valoración</option>
+            <option value="1">⭐ 1 - Muy malo</option>
+            <option value="2">⭐⭐ 2 - Malo</option>
+            <option value="3">⭐⭐⭐ 3 - Regular</option>
+            <option value="4">⭐⭐⭐⭐ 4 - Bueno</option>
+            <option value="5">⭐⭐⭐⭐⭐ 5 - Excelente</option>
+        </select>
+        <span asp-validation-for="Valoracion" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

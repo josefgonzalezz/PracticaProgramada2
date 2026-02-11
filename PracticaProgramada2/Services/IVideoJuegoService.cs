@@ -1,5 +1,4 @@
 ﻿using PracticaProgramada2.Models;
-using System.Collections.Generic;
 
 namespace PracticaProgramada2.Services
 {
@@ -10,5 +9,6 @@ namespace PracticaProgramada2.Services
         bool CrearVideojuego(Videojuego videojuego);
         bool EditarVideojuego(Videojuego videojuego);
         bool EliminarVideojuego(int id);
+        
     }
 }

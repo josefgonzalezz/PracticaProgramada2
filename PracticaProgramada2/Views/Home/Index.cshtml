@@ -1,8 +1,38 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Inicio";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Catalogo de Videojuegos</h1>
+    <p class="lead">Explora, comenta y valora tus videojuegos favoritos</p>
+    
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">🎮 Videojuegos</h5>
+                    <p class="card-text">Explora nuestro catálogo completo de videojuegos</p>
+                    <a href="/videojuego" class="btn btn-primary">Ver Videojuegos</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">🏷️ Generos</h5>
+                    <p class="card-text">Administra los generos de videojuegos</p>
+                    <a href="/genero" class="btn btn-success">Ver Generos</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">💬 Comentarios</h5>
+                    <p class="card-text">Revisa todos los comentarios y valoraciones</p>
+                    <a href="/comentario" class="btn btn-info">Ver Comentarios</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
