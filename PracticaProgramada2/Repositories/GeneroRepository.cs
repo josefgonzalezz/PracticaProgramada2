@@ -2,6 +2,8 @@
 using PracticaProgramada2.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace PracticaProgramada2.Repositories
 {
@@ -15,10 +17,15 @@ namespace PracticaProgramada2.Repositories
         }
 
         public List<Genero> ObtenerTodos()
-            => _context.Generos.OrderBy(g => g.Nombre).ToList();
+            => _context.Generos
+                .Include(g => g.Videojuegos)
+                .ToList();
 
-        public Genero? ObtenerPorId(int id)
-            => _context.Generos.Find(id);
+       public Genero? ObtenerPorId(int id)
+        => _context.Generos
+            .Include(g => g.Videojuegos)
+            .FirstOrDefault(g => g.Id == id);
+
 
         public bool ExisteId(int id)
             => _context.Generos.Any(g => g.Id == id);

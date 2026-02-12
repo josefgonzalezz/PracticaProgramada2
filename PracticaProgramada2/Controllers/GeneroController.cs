@@ -53,15 +53,14 @@ namespace PracticaProgramada2.Controllers
         public IActionResult Editar(int id)
         {
             var genero = _generoService.ObtenerDetalle(id);
-
             if (genero == null)
                 return NotFound();
 
             return View(genero);
         }
 
-        [HttpPost("editar")]
-        public IActionResult Editar(Genero genero)
+        [HttpPost("editar/{id:int}")]
+        public IActionResult Editar(int id, Genero genero)
         {
             if (!ModelState.IsValid)
                 return View(genero);

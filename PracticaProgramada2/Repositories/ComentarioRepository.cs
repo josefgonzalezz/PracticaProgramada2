@@ -1,5 +1,6 @@
 ﻿using PracticaProgramada2.Data;
 using PracticaProgramada2.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,10 +16,15 @@ namespace PracticaProgramada2.Repositories
         }
 
         public List<Comentario> ObtenerTodos()
-            => _context.Comentarios.OrderBy(c => c.Fecha).ToList();
+            => _context.Comentarios
+                .Include(c => c.Videojuego)
+                .OrderBy(c => c.Fecha)
+                .ToList();
 
         public Comentario? ObtenerPorId(int id)
-            => _context.Comentarios.Find(id);
+            => _context.Comentarios
+                .Include(c => c.Videojuego)
+                .FirstOrDefault(c => c.Id == id);
 
         public bool ExisteId(int id)
             => _context.Comentarios.Any(c => c.Id == id);

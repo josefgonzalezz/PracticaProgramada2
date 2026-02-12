@@ -81,8 +81,8 @@ namespace PracticaProgramada2.Controllers
             return View(comentario);
         }
 
-        [HttpPost("editar")]
-        public IActionResult Editar(Comentario comentario)
+        [HttpPost("editar/{id:int}")]
+        public IActionResult Editar(int id, Comentario comentario)
         {
             if (!ModelState.IsValid)
             {
@@ -91,7 +91,6 @@ namespace PracticaProgramada2.Controllers
             }
 
             _comentarioService.EditarComentario(comentario);
-            TempData["Mensaje"] = "Comentario actualizado exitosamente.";
             return RedirectToAction("Index");
         }
 
